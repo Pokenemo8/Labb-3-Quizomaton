@@ -1,0 +1,31 @@
+﻿<Window x:Class="Labb_3.View.OptionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Labb_3.View" xmlns:wiewmodel="clr-namespace:Labb_3.WiewModel"
+        xmlns:mo="clr-namespace:Labb_3.Model"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+
+        Title="OptionsWindow" Height="200" Width="150">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="mo:Difficulty"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="Pack Name"/>
+            <TextBox Text="{Binding PackName}"/>
+            <TextBlock Text="Time Limit"/>
+            <Slider Minimum="10" Maximum="60" Value="{Binding PackTimeLimit}"/>
+            <TextBlock Text="{Binding PackTimeLimit}"/>
+            <TextBlock Text="Difficulty"/>
+            <ComboBox SelectedValue="{Binding PackDifficulty}" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" />
+        </StackPanel>
+    </Grid>
+</Window>

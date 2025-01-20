@@ -1,0 +1,109 @@
+﻿<UserControl x:Class="Labb_3.View.PlayerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Labb_3.View" 
+             xmlns:wiewmodel="clr-namespace:Labb_3.WiewModel" d:DataContext="{d:DesignInstance Type=wiewmodel:PlayerViewModel}"
+             DataContext="{Binding PlayerViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+    <Grid Name="PlayView" Visibility="{Binding PlayerVisibility, Converter={StaticResource BoolToVis}}">
+
+            
+            <TextBlock 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Width="150"
+                Height="70"
+                TextAlignment="Center"
+                Margin="50,30,0,0"
+                FontSize="25"
+                Text="{Binding ScoreText}"   
+                Visibility="{Binding GameVisibility}"
+            />
+            <TextBlock
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Center"
+                Margin="0,50,0,0"
+                Text="{Binding ActiveQuestionText}"
+                TextAlignment="Center" 
+                FontSize="30"
+                Width="380" Height="40"
+                DockPanel.Dock="Bottom"
+                Visibility="{Binding GameVisibility}"
+            />
+            <TextBlock 
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Width="150"
+                Height="70"
+                TextAlignment="Center"
+                Margin="0,30,50,0"
+                FontSize="25"
+                Text="{Binding TimeLeft}"  
+                Visibility="{Binding GameVisibility}"
+            />
+            
+        
+        <Button 
+            Name="Button1"
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Left"
+            Content="{Binding Button1Text}"
+            Margin="459,344,0,0" Height="60" Width="250"
+            Command="{Binding Button1PressedCommand}"
+            Background="{Binding Button1Color}"
+            Visibility="{Binding GameVisibility}"
+        />
+        <Button 
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Left"
+            Content="{Binding Button2Text}"
+            Margin="100,344,0,0" Height="60" Width="250"
+            Command="{Binding Button2PressedCommand}"
+            Background="{Binding Button2Color}"
+            Visibility="{Binding GameVisibility}"
+        />
+        <Button 
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Left"
+            Content="{Binding Button3Text}"
+            Margin="459,0,0,0" Height="60" Width="250"
+            Command="{Binding Button3PressedCommand}"
+            Background="{Binding Button3Color}"
+            Visibility="{Binding GameVisibility}"
+        />
+        <Button 
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Left"
+            Content="{Binding Button4Text}"
+            Margin="100,0,0,0" Height="60" Width="250"
+            Command="{Binding Button4PressedCommand}"
+            Background="{Binding Button4Color}"
+            Visibility="{Binding GameVisibility}"
+        />
+        
+        <TextBlock
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Center"
+            Margin="0,119,0,0"
+            Text="{Binding QuestionsleftText}"
+            TextAlignment="Center" 
+            Width="340" Height="38"
+            Visibility="{Binding GameVisibility}"
+        />
+        <TextBlock
+            VerticalAlignment="Center"
+            HorizontalAlignment="Stretch"
+            TextAlignment="Center"
+            Height="100"
+            FontSize="50"
+            Text="{Binding EndScreenText}"
+            Visibility="{Binding EndScreenVisibility}"
+        />
+    </Grid>
+</UserControl>

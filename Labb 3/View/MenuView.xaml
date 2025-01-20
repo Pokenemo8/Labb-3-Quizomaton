@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="Labb_3.View.MenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:local="clr-namespace:Labb_3.View" 
+             xmlns:wiewmodel="clr-namespace:Labb_3.WiewModel"
+             mc:Ignorable="d" 
+             
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <Grid>
+        <Menu>
+            <MenuItem Header="_File">
+                <MenuItem Header="_New Question Pack" Icon="{fa:Icon file}"  DataContext="{Binding ConfigViewModel}" Command="{Binding NewPackCommand}"/>
+                <MenuItem Header="_Select Question Pack" Icon="{fa:Icon folderopen}" >
+                          <MenuItem.ItemsSource>
+                    <Binding Path="Packs"/>
+                    </MenuItem.ItemsSource>
+                    <MenuItem.ItemContainerStyle>
+                        <Style TargetType="MenuItem">
+                            <Setter Property="Header" Value="{Binding Name}" />
+                            <Setter Property="Command" Value="{Binding DataContext.SetActivePackCommand, RelativeSource={RelativeSource AncestorType=Window}}" />
+                            <Setter Property="CommandParameter" Value="{Binding}" />
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
+                </MenuItem>
+                <MenuItem Header="_Delete Question Pack" Icon="{fa:Icon Fire}" Command="{Binding DestroyQuestionPackCommand}"/>
+                <Separator/>
+                <MenuItem Header="E_xit" Icon="{fa:Icon rightfrombracket}" Command="{Binding ExitCommand}"/>
+            </MenuItem>
+            <MenuItem Header="_Edit" DataContext="{Binding ConfigViewModel}">
+                <MenuItem Header="_Add Question" Command="{Binding AddNewQuestionCommand}" Icon="{fa:Icon plus}"/>
+                <MenuItem Header="_DESTROY This Question" 
+                          Icon="{fa:Icon Fire}"
+                          Command="{Binding ObliterateQuestionCommand}"/>
+                <MenuItem Header="Pack _Options" Icon="{fa:Icon sliders}" Command="{Binding CurrentPackOptionsCommand}"/>
+            </MenuItem>
+            <MenuItem Header="_View" >
+                <MenuItem Header="_Play" Command="{Binding ChangeViewPlayerCommand}" Icon="{fa:Icon play}"/>
+                <MenuItem Header="_Edit" Command="{Binding ChangeViewConfigCommand}" Icon="{fa:Icon gear}"/>
+                <Separator/>
+                <MenuItem Header="_Fullscreewn" Command="{Binding FullscreenCommand}" Icon="{fa:Icon expand}"/>
+            </MenuItem>
+        </Menu>
+    </Grid>
+</UserControl>
