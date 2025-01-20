@@ -12,7 +12,6 @@ using System.Xml.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.IO;
-using System.Windows.Forms;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 
@@ -26,7 +25,6 @@ namespace Labb_3.WiewModel
         public DelegateCommand ChangeViewConfigCommand { get; }
         public DelegateCommand ChangeViewPlayerCommand { get; }
         public DelegateCommand NewQuestionPackCommand { get; }
-        public DelegateCommand WindowClosingCommand { get; }
         public DelegateCommand SetActivePackCommand { get; }
         public DelegateCommand DestroyQuestionPackCommand { get; }
         public DelegateCommand FullscreenCommand { get; }
@@ -64,6 +62,7 @@ namespace Labb_3.WiewModel
                 ConfigViewModel?.RaisePropertyChanged("ActivePack");
             }
         }
+        public Action CloseWindowAction { get; set; }
 
         public MainWindowViewModel()
         {
@@ -102,7 +101,6 @@ namespace Labb_3.WiewModel
             ChangeViewConfigCommand = new DelegateCommand(ChangeViewConfig, CanChangeViewConfig);
             ChangeViewPlayerCommand = new DelegateCommand(ChangeViewPlayer, CanChangeViewPlayer);
             NewQuestionPackCommand = new DelegateCommand(NewQuestionPack);
-            WindowClosingCommand = new DelegateCommand(WindowClosing);
             SetActivePackCommand = new DelegateCommand(SetActivePack);
             DestroyQuestionPackCommand = new DelegateCommand(DestroyQuestionPack);
             FullscreenCommand = new DelegateCommand(Fullscreen);
@@ -141,7 +139,7 @@ namespace Labb_3.WiewModel
         {
             SavePacks();
         }
-        public async void SavePacks()
+        public async Task SavePacks()
         {
             var options = new JsonSerializerOptions()
             {
@@ -152,7 +150,7 @@ namespace Labb_3.WiewModel
                 ReferenceHandler = ReferenceHandler.IgnoreCycles
             };
             string json = JsonSerializer.Serialize(Packs, options);
-            File.WriteAllText(GetSaveFileLocation(), json);
+            await File.WriteAllTextAsync(GetSaveFileLocation(), json);
         }
         private string GetSaveFileLocation()
         {
@@ -170,10 +168,6 @@ namespace Labb_3.WiewModel
         public void PutThisPackIntoThePackListPlease(QuestionPackViewModel pack)
         {
             Packs.Add(pack);
-        }
-        public void WindowClosing(object parameter)
-        {
-            SavePacks();
         }
         public void SetActivePack(object selectedPack)
         {
@@ -205,6 +199,7 @@ namespace Labb_3.WiewModel
         public void IWantToLeavePls(object parameter)
         {
             SavePacks();
+            Application.Current.Shutdown();
         }
     }
 }
