@@ -82,7 +82,10 @@ namespace Labb_3.WiewModel
                 
                 
             }
-            
+            else
+            {
+                Packs = new();
+            }
             if (Packs.Count == 0)
             {
                 QuestionPackViewModel newpack = new QuestionPackViewModel(new QuestionPack("My Question Pack"));
